@@ -28,6 +28,7 @@ class Farm:
         print('relax -> provides lovely descriptions of your fields')
         print('pasture -> add some animals to your pasture')
         print('exit -> exits the program')
+        print('')
 
     def call_action(self, input):
         """Based on the user input, call the appropriate method
@@ -53,7 +54,7 @@ class Farm:
         the valid options, ask how many hectares it is, and then add it to our
         list of fields.
         """
-        print("What kind of field is it: corn, what, or tomacco?")
+        print("What kind of field is it: corn, wheat, or tomacco?")
         field_type = input()
         while field_type not in ['corn', 'wheat', 'tomacco']:
             print("Please enter either corn, wheat, or tomacco.")
