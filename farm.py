@@ -1,6 +1,9 @@
+from math import floor
+
 class Farm:
 
     fields = []
+    animals = {'cow': 0, 'pig': 0, 'chicken': 0}
     harvest_totals = 0
 
     def main_menu(self):
@@ -16,6 +19,7 @@ class Farm:
         print('harvest -> harvests crops and adds to total harvested')
         print('status -> displays some information about the farm')
         print('relax -> provides lovely descriptions of your fields')
+        print('pasture -> add some animals to your pasture')
         print('exit -> exits the program')
 
     def call_action(self, input):
@@ -27,6 +31,8 @@ class Farm:
             self.status()
         elif input == 'relax':
             self.relax()
+        elif input == 'pasture':
+            self.pasture()
         elif input == 'exit':
             quit()
         else:
@@ -57,15 +63,44 @@ class Farm:
             print("Harvesting {} food from {} hectare {} field.".format(harvested_food, item['size'], item['type']))
             self.harvest_totals += harvested_food
         self.fields = []
+        print("Your animals have been busy breeding!")
+        self.animals['pig'] = floor(self.animals['pig'] * 1.5)
+        self.animals['cow'] = floor(self.animals['cow'] * 1.2)
+        self.animals['chicken'] = floor(self.animals['chicken'] * 2)
         self.status()
 
     def status(self):
         for item in self.fields:
             print("This {} field is {} hectares.".format(item['type'], item['size']))
+        if self.animals['pig'] > 0:
+            print("There are {} pigs roaming about right now.".format(self.animals['pig']))
+        if self.animals['cow'] > 0:
+            print("There are {} cows roaming about right now.".format(self.animals['cow']))
+        if self.animals['chicken'] > 0:
+            print("There are {} chickens roaming about right now.".format(self.animals['chicken']))
         if self.harvest_totals == 0:
             print("The farm has harvested no food yet.")
         else:
             print("The farm has harvested {} units of food so far.".format(self.harvest_totals))
+
+    def pasture(self):
+        print("What kind of animal is it: cow, pig, or chicken?")
+        animal_type = input()
+        while animal_type not in ['cow', 'pig', 'chicken']:
+            print("Please enter either cow, pig, or chicken.")
+            animal_type = input()
+        print("How many {}s are you adding?".format(animal_type))
+        num_animals = int(input())
+        if animal_type == 'cow':
+            self.animals['cow'] += num_animals
+            total_of_new_type = self.animals['cow']
+        elif animal_type == 'pig':
+            self.animals['pig'] += num_animals
+            total_of_new_type = self.animals['pig']
+        elif animal_type == 'chicken':
+            self.animals['chicken'] += num_animals
+            total_of_new_type = self.animals['chicken']
+        print("{} {}s have been added to your grazing animals, for a total of {} {}s.".format(num_animals, animal_type, total_of_new_type, animal_type))
 
     def relax(self):
         if self.fields == []:
