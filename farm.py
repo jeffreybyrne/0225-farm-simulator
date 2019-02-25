@@ -29,12 +29,15 @@ class Farm:
             self.relax()
         elif input == 'exit':
             quit()
+        else:
+            print("Invalid input, please enter one of the listed options.")
+            pass
 
     def new_field(self):
-        print("What kind of field is it: corn or what?")
+        print("What kind of field is it: corn, what, or tomacco?")
         field_type = input()
-        while field_type not in ['corn', 'wheat']:
-            print("Please enter either corn or wheat.")
+        while field_type not in ['corn', 'wheat', 'tomacco']:
+            print("Please enter either corn, wheat, or tomacco.")
             field_type = input()
         print("How large is the field in hectares?")
         field_size = int(input())
@@ -49,6 +52,8 @@ class Farm:
                 harvested_food = 20 * item['size']
             elif item['type'] == 'wheat':
                 harvested_food = 30 * item['size']
+            elif item['type'] == 'tomacco':
+                harvested_food = 50 * item['size']
             print("Harvesting {} food from {} hectare {} field.".format(harvested_food, item['size'], item['type']))
             self.harvest_totals += harvested_food
         self.fields = []
@@ -56,10 +61,7 @@ class Farm:
 
     def status(self):
         for item in self.fields:
-            if item['type'] == 'corn':
-                print("This corn field is {} hectares.".format(item['size']))
-            elif item['type'] == 'wheat':
-                print("This wheat field is {} hectares.".format(item['size']))
+            print("This {} field is {} hectares.".format(item['type'], item['size']))
         if self.harvest_totals == 0:
             print("The farm has harvested no food yet.")
         else:
@@ -74,6 +76,8 @@ class Farm:
                     print("Oh dang look at that, there's {} hectares of corn in that field!".format(item['size']))
                 elif item['type'] == 'wheat':
                     print("Aw it's just wheat, but there's {} hectares of it in that field.".format(item['size']))
+                elif item['type'] == 'tomacco':
+                    print("You hit the motherlode, that's pure tomacco! There's {} hectares of it, ripe for the picking.".format(item['size']))
 
 
 my_farm = Farm()
